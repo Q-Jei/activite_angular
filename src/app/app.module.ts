@@ -1,22 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostlistComponent } from './postlist/postlist.component';
-import { PostlistitemComponent } from './postlistitem/postlistitem.component';
+import { PostListComponent } from './postlist/postlist.component';
+import { PostListItemComponent } from './postlistitem/postlistitem.component';
+import { NewPostComponent } from './newpost/newpost.component';
+import { PostService } from './services/post.service';
+
+const appRoutes: Routes = [
+  {path: 'posts', component: PostListComponent},
+  {path: 'new', component: NewPostComponent},
+  {path: '', component: PostListComponent},
+  {path: '**', redirectTo: 'posts'}
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostlistComponent,
-    PostlistitemComponent
+    PostListComponent,
+    PostListItemComponent,
+    NewPostComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    PostService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

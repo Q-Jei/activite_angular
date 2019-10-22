@@ -1,16 +1,8 @@
-<li class="list-group-item" [ngClass]="{
-      'list-group-item-success': post.loveIts > 0,
-      'list-group-item-danger': post.loveIts < 0
-    }">
-  <div class="row">
-    <h2 class="col-8">{{post.title}}</h2>
-    <p class="col-4 text-right font-italic">{{ post.createdAt | date : 'short' | uppercase }}</p>
-  </div>
-  <div class="row">
-    <p class="col-12">{{post.content}}</p>
-  </div>
-  <div class="btn-toolbar">
-    <button type="button" class="btn btn-success"  (click)="updateLikes('add')">Love it!</button>
-    <button type="button" class="btn btn-danger" (click)="updateLikes('remove')">Don't love it!</button>
-  </div>
+<li [ngClass]="{'list-group-item': true, 'list-group-item-success': post.loveIts>0, 'list-group-item-danger': post.loveIts<0}">
+  <span class="h2">{{ post.title }}</span>
+  <span class="pull-right"><span class="badge">{{ post.loveIts }}</span> {{ post.createdAt | date: 'short' }}</span>
+  <p>{{ post.content }}</p>
+  <button type="button" name="loveIf" class="btn btn-success" (click)="onLoveIt(post)">J'aime</button>
+  <button type="button" name="onDoNotLoveIt" class="btn btn-danger" (click)="onDoNotLoveIt(post)">Je n'aime pas</button>
+  <button type="button" name="remove" class="pull-right btn btn-danger"  (click)="onDelete(post)">Supprimer</button>
 </li>

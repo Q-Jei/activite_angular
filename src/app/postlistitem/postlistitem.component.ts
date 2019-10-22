@@ -1,27 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PostService } from '../services/post.service';
+import { Post } from '../models/post.model';
 
 @Component({
   selector: 'app-postlistitem',
   templateUrl: './postlistitem.component.html',
   styleUrls: ['./postlistitem.component.scss']
 })
-export class PostlistitemComponent implements OnInit {
+export class PostListItemComponent implements OnInit {
+  @Input() post: Post
 
-  @Input() post;
-
-  constructor() { }
+  constructor(private postService: PostService) {}
 
   ngOnInit() {
   }
 
-  updateLikes(value: string) {
-    switch (value) {
-      case 'add':
-        this.post.loveIts++;
-        break;
-      case 'remove':
-        this.post.loveIts--;
-        break;
-    }
+  onLoveIt(post: Post) {
+    this.postService.lovePost(post);
   }
+
+  onDoNotLoveIt(post: Post) {
+    this.postService.doNotLovePost(post);
+  }
+
+  onDelete(post: Post) {
+    this.postService.removePost(post);
+  }
+
+
 }
